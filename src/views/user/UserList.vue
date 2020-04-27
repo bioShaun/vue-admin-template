@@ -11,6 +11,11 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
+      <el-table-column label="用户权限" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.role }}
+        </template>
+      </el-table-column>
       <el-table-column label="邮箱" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.email }}</span>
@@ -42,7 +47,7 @@
 export default {
   data() {
     return {
-      list: [],
+      list: []
     };
   },
 
@@ -57,20 +62,20 @@ export default {
       this.$confirm(`是否确定删除用户 "${row.name}"?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(async () => {
         await this.$request.delete(`rest/users/${row._id}`);
         this.$message({
           type: "success",
-          message: "删除成功!",
+          message: "删除成功!"
         });
         this.fetch();
       });
-    },
+    }
   },
 
   created() {
     this.fetch();
-  },
+  }
 };
 </script>

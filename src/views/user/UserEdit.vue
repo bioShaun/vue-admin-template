@@ -4,6 +4,16 @@
       <el-form-item label="用户名">
         <el-input v-model="form.name" />
       </el-form-item>
+      <el-form-item label="权限">
+        <el-select filterable v-model="form.role">
+          <el-option
+            v-for="role in roles"
+            :label="role"
+            :value="role"
+            :key="role"
+          ></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="密码">
         <el-input type="password" v-model="form.password" />
       </el-form-item>
@@ -26,7 +36,7 @@
 <script>
 export default {
   props: {
-    id: {},
+    id: {}
   },
 
   data() {
@@ -35,8 +45,9 @@ export default {
         name: "",
         password: "",
         phone: "",
-        email: "",
+        email: ""
       },
+      roles: ["admin", "user"]
     };
   },
 
@@ -54,20 +65,20 @@ export default {
       this.$router.push("/user/list");
       this.$message({
         message: "cancel!",
-        type: "warning",
+        type: "warning"
       });
     },
 
     async fetch() {
       const res = await this.$request.get(`rest/users/${this.id}`);
       this.form = res;
-    },
+    }
   },
 
   created() {
     console.log(this.id);
     this.id && this.fetch();
-  },
+  }
 };
 </script>
 
